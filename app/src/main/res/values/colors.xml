@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4285f4</color>
+    <color name="colorPrimaryDark">#3367d6</color>
+    <color name="colorAccent">#FFC400</color>
+
+    <color name="colorTabText">#ffffff</color>
+
+    <color name="time_number_background">@color/colorPrimary</color>
+    <color name="time_number_text_color">@color/colorAccent</color>
+    <color name="time_indicator">#ff0000</color>
+
+    <color name="event_color_1">#59dbe0</color>
+    <color name="event_color_2">#f57f68</color>
+    <color name="event_color_3">#87d288</color>
+    <color name="event_color_4">#f8b552</color>
+    <color name="event_color_5">#2789e4</color>
+
+    <color name="transparent">#00ffffff</color>
+
+</resources>
