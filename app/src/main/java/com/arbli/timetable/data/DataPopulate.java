@@ -1,9 +1,9 @@
-package com.arbli.gridweek1.data;
+package com.arbli.timetable.data;
 
-import com.arbli.gridweek1.constant.Const;
-import com.arbli.gridweek1.model.Course;
-import com.arbli.gridweek1.model.CourseEvent;
-import com.arbli.gridweek1.model.Professor;
+import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.model.Course;
+import com.arbli.timetable.model.CourseEvent;
+import com.arbli.timetable.model.Professor;
 
 import java.util.ArrayList;
 import java.util.Collections;

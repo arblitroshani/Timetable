@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.model;
+package com.arbli.timetable.model;
 
 import java.io.Serializable;
 

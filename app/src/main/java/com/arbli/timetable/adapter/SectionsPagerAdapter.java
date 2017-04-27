@@ -1,11 +1,11 @@
-package com.arbli.gridweek1.adapter;
+package com.arbli.timetable.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.arbli.gridweek1.constant.Const;
-import com.arbli.gridweek1.fragment.PlaceholderFragment;
+import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.fragment.PlaceholderFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

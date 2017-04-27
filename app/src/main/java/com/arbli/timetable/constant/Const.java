@@ -1,6 +1,6 @@
-package com.arbli.gridweek1.constant;
+package com.arbli.timetable.constant;
 
-import com.arbli.gridweek1.R;
+import com.arbli.timetable.R;
 
 public class Const {
 

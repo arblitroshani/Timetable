@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.adapter;
+package com.arbli.timetable.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -16,10 +16,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
-import com.arbli.gridweek1.activity.CourseEventViewActivity;
-import com.arbli.gridweek1.R;
-import com.arbli.gridweek1.constant.Const;
-import com.arbli.gridweek1.model.CourseEvent;
+import com.arbli.timetable.activity.CourseEventViewActivity;
+import com.arbli.timetable.R;
+import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.model.CourseEvent;
 
 import java.util.ArrayList;
 

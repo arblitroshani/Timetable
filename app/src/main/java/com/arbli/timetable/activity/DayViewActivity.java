@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.activity;
+package com.arbli.timetable.activity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arbli.gridweek1.R;
-import com.arbli.gridweek1.adapter.SectionsPagerAdapter;
-import com.arbli.gridweek1.constant.Const;
+import com.arbli.timetable.R;
+import com.arbli.timetable.adapter.SectionsPagerAdapter;
+import com.arbli.timetable.constant.Const;
 
 import java.util.Calendar;
 

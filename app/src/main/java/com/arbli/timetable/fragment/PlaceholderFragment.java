@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.fragment;
+package com.arbli.timetable.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arbli.gridweek1.R;
-import com.arbli.gridweek1.adapter.MyAdapter;
-import com.arbli.gridweek1.data.DataPopulate;
+import com.arbli.timetable.R;
+import com.arbli.timetable.adapter.MyAdapter;
+import com.arbli.timetable.data.DataPopulate;
 
 public class PlaceholderFragment extends Fragment {
 

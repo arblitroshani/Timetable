@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.model;
+package com.arbli.timetable.model;
 
 public class Student {
 

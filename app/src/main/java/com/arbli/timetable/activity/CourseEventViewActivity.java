@@ -1,4 +1,4 @@
-package com.arbli.gridweek1.activity;
+package com.arbli.timetable.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.arbli.gridweek1.R;
-import com.arbli.gridweek1.constant.Const;
-import com.arbli.gridweek1.model.CourseEvent;
+import com.arbli.timetable.R;
+import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.model.CourseEvent;
 
 public class CourseEventViewActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class CourseEventViewActivity extends AppCompatActivity {
         }
 
         tvCourseName.setText(mCourseEvent.getCourse().getCourseName());
-        tvProfName.setText(mCourseEvent.getCourse().getProfessorName());
+        tvProfName.setText(mCourseEvent.getCourse().getProfessor().getName());
         tvClassroom.setText(mCourseEvent.getClassroom());
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.arbli.gridweek1">
+    package="com.arbli.timetable">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.DayViewActivity"
+            android:name="com.arbli.timetable.activity.DayViewActivity"
             android:label="@string/title_activity_day_view"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CourseEventViewActivity"
+            android:name="com.arbli.timetable.activity.CourseEventViewActivity"
             android:label="@string/title_activity_course_event_view"
-            android:parentActivityName=".activity.DayViewActivity"
+            android:parentActivityName="com.arbli.timetable.activity.DayViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.arbli.gridweek1.activity.DayViewActivity" />
+                android:value="com.arbli.timetable.activity.DayViewActivity" />
         </activity>
     </application>
 
