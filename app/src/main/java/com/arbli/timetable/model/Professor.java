@@ -1,8 +1,9 @@
 package com.arbli.timetable.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Professor {
+public class Professor implements Serializable {
 
     private static int id_cnt=0;
 
