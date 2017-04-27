@@ -42,4 +42,11 @@ public class Const {
 
     public static final int SCHOOL_START_MINUTES = 8*60 + 45;
     public static final int SCHOOL_END_MINUTES = 20*60 + 30;
+
+    public static String TITLE_MSC = "M.Sc.";
+    public static String TITLE_DR = "Dr.";
+    public static String TITLE_PROF = "Prof.";
+    public static String TITLE_PROF_DR = "Prof. Dr.";
+    public static String TITLE_NOT = "";
+
 }

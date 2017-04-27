@@ -72,7 +72,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((EventViewHolder) holder).cv.setCardBackgroundColor(color);
 
         if (duration != 1) {
-            String professorName = tmp.getCourse().getProfessorName();
+            String professorName = tmp.getCourse().getProfessor().getName();
             ((EventViewHolder) holder).tvProfName.setText(professorName);
         }
     }

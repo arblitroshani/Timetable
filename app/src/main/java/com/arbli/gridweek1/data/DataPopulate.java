@@ -3,6 +3,7 @@ package com.arbli.gridweek1.data;
 import com.arbli.gridweek1.constant.Const;
 import com.arbli.gridweek1.model.Course;
 import com.arbli.gridweek1.model.CourseEvent;
+import com.arbli.gridweek1.model.Professor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ public class DataPopulate {
 
     public static ArrayList<CourseEvent> mEvents;
     public static ArrayList<Course> mCourses;
+    public static ArrayList<Professor> mProfessors;
     public static ArrayList<CourseEvent>[] week;
 
     public static DataPopulate getInstance() {
@@ -25,6 +27,7 @@ public class DataPopulate {
     protected DataPopulate() {
         mEvents = new ArrayList<>();
         mCourses = new ArrayList<>();
+        mProfessors = new ArrayList<>();
         week = (ArrayList<CourseEvent>[]) new ArrayList[6];
 
         addData();
@@ -32,9 +35,13 @@ public class DataPopulate {
     }
 
     private void addData() {
-        mCourses.add(new Course("Introduction to Database", "edomnori", Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        mCourses.add(new Course("Numerical Analysis", "auka", Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        mCourses.add(new Course("Digital Design", "bcico", Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+        mProfessors.add(new Professor("Elton Domnori", "edomnori", Const.TITLE_DR, "E210"));
+        mProfessors.add(new Professor("Arban Uka", "auka", Const.TITLE_DR, "E211"));
+        mProfessors.add(new Professor("Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010"));
+
+        mCourses.add(new Course("Introduction to Database", mProfessors.get(0), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+        mCourses.add(new Course("Numerical Analysis", mProfessors.get(1), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+        mCourses.add(new Course("Digital Design", mProfessors.get(2), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
 
         mEvents.add(new CourseEvent(mCourses.get(0), "E110", 1, 3, Const.WEEK_MON, 0));
         mEvents.add(new CourseEvent(mCourses.get(1), "A131", 5, 2, Const.WEEK_MON, 1));

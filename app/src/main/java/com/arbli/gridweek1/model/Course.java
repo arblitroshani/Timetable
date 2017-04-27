@@ -13,13 +13,12 @@ public class Course implements Serializable{
     private int academicYear;
 
     private String courseName;
-    private String professorName;
-    //private String shortProfessorName;
+    private Professor professor;    // private int professorId;
 
-    public Course(String courseName, String professorName, int faculty, int department, int academicYear, int openYear) {
+    public Course(String courseName, Professor professor, int faculty, int department, int academicYear, int openYear) {
         id = id_cnt++;
         this.courseName = courseName;
-        this.professorName = professorName;
+        this.professor = professor;
         this.faculty = faculty;
         this.department = department;
         this.academicYear = academicYear;
@@ -70,11 +69,11 @@ public class Course implements Serializable{
         this.courseName = courseName;
     }
 
-    public String getProfessorName() {
-        return professorName;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setProfessorName(String professorName) {
-        this.professorName = professorName;
+    public void setProfessor(String professorName) {
+        this.professor = professor;
     }
 }
