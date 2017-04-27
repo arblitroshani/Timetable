@@ -17,7 +17,6 @@ public class DataPopulate {
     public static ArrayList<Professor> mProfessors;
     public static ArrayList<CourseEvent>[] week;
 
-    //deni
 
     public static DataPopulate getInstance() {
         if (instance == null) {
