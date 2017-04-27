@@ -25,6 +25,7 @@ public class DayViewActivity extends AppCompatActivity {
     private View mTimeIndicator;
     private Resources resources;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
