@@ -1,23 +1,33 @@
 package com.arbli.timetable.model;
 
-public class Student {
+import java.io.Serializable;
 
-    private static int id_cnt = 0;
+public class Student implements Serializable{
 
     private int id;
     private String name;
-    private int enrollYear;
     private int studYear;
-    private int department;
-    private int faculty;
+    private int departmentId;
+    private int facultyId;
+    private String email;
 
-    public Student(String name, int enrollYear, int studYear, int department, int faculty) {
-        this.id = id_cnt++;
+    public Student(){}
+
+    public Student(int id, String name, int studYear, int departmentId, int facultyId, String email) {
+        this.id = id;
         this.name = name;
-        this.enrollYear = enrollYear;
         this.studYear = studYear;
-        this.department = department;
-        this.faculty = faculty;
+        this.departmentId = departmentId;
+        this.facultyId = facultyId;
+        this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -28,14 +38,6 @@ public class Student {
         this.name = name;
     }
 
-    public int getEnrollYear() {
-        return enrollYear;
-    }
-
-    public void setEnrollYear(int enrollYear) {
-        this.enrollYear = enrollYear;
-    }
-
     public int getStudYear() {
         return studYear;
     }
@@ -44,19 +46,27 @@ public class Student {
         this.studYear = studYear;
     }
 
-    public int getDepartment() {
-        return department;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(int department) {
-        this.department = department;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public int getFaculty() {
-        return faculty;
+    public int getFacultyId() {
+        return facultyId;
     }
 
-    public void setFaculty(int faculty) {
-        this.faculty = faculty;
+    public void setFacultyId(int facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
