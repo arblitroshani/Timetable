@@ -36,8 +36,8 @@ public class CourseEventViewActivity extends AppCompatActivity {
             mCourseEvent = (CourseEvent) intent.getSerializableExtra(Const.COURSE_EVENT_OBJECT_TAG);
         }
 
-        tvCourseName.setText(mCourseEvent.getCourse().getCourseName());
-        tvProfName.setText(mCourseEvent.getCourse().getProfessor().getName());
+        //tvCourseName.setText(mCourseEvent.getCourse().getCourseName());
+        //tvProfName.setText(mCourseEvent.getCourse().getProfessor().getName());
         tvClassroom.setText(mCourseEvent.getClassroom());
     }
 

@@ -112,19 +112,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        reference.child("Course").push().setValue(new Course(0,"Introduction to Database", mProfessors.get(0).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", mProfessors.get(1).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        reference.child("Course").push().setValue(new Course(2,"Digital Design", mProfessors.get(2).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+//        reference.child("Course").push().setValue(new Course(0,"Introduction to Database", mProfessors.get(0).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,2015,4,10));
+//        reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", mProfessors.get(1).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+//        reference.child("Course").push().setValue(new Course(2,"Digital Design", mProfessors.get(2).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
 
-        reference.child("CourseEvent").push().setValue(new CourseEvent(0,mCourses.get(0).getId(), "E110", 1, 3, Const.WEEK_MON, 0));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(1,mCourses.get(1).getId(), "A131", 5, 2, Const.WEEK_MON, 1));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(2,mCourses.get(2).getId(), "A130", 7, 2, Const.WEEK_MON, 2));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(3,mCourses.get(2).getId(), "A130", 10, 3, Const.WEEK_MON, 3));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(4,mCourses.get(2).getId(), "A130", 4, 3, Const.WEEK_THU, 3));
+//        reference.child("CourseEvent").push().setValue(new CourseEvent(0,mCourses.get(0).getId(), "E110", 1, 3, Const.WEEK_MON, 0));
+//        reference.child("CourseEvent").push().setValue(new CourseEvent(1,mCourses.get(1).getId(), "A131", 5, 2, Const.WEEK_MON, 1));
+//        reference.child("CourseEvent").push().setValue(new CourseEvent(2,mCourses.get(2).getId(), "A130", 7, 2, Const.WEEK_MON, 2));
+//        reference.child("CourseEvent").push().setValue(new CourseEvent(3,mCourses.get(2).getId(), "A130", 10, 3, Const.WEEK_MON, 3));
+//        reference.child("CourseEvent").push().setValue(new CourseEvent(4,mCourses.get(2).getId(), "A130", 4, 3, Const.WEEK_THU, 3));
 
-        reference.child("Professor").push().setValue(new Professor(0,"Elton Domnori", "edomnori", Const.TITLE_DR, "E210",Const.FACULTY_FAE_ID,new ArrayList<Integer>(0)));
-        reference.child("Professor").push().setValue(new Professor(1,"Arban Uka", "auka", Const.TITLE_DR, "E211",Const.FACULTY_FAE_ID,new ArrayList<Integer>(1)));
-        reference.child("Professor").push().setValue(new Professor(2,"Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010",Const.FACULTY_FAE_ID,new ArrayList<Integer>(2)));
+//        reference.child("Professor").push().setValue(new Professor(0,"Elton Domnori", "edomnori", Const.TITLE_DR, "E210",Const.FACULTY_FAE_ID,new ArrayList<Integer>(0)));
+//        reference.child("Professor").push().setValue(new Professor(1,"Arban Uka", "auka", Const.TITLE_DR, "E211",Const.FACULTY_FAE_ID,new ArrayList<Integer>(1)));
+//        reference.child("Professor").push().setValue(new Professor(2,"Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010",Const.FACULTY_FAE_ID,new ArrayList<Integer>(2)));
     }
 
 

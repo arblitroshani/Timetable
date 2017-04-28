@@ -81,4 +81,3 @@ public class Professor implements Serializable {
         this.courseIdList = courseIdList;
     }
 }
-

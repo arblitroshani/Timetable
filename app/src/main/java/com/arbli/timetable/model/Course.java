@@ -11,10 +11,12 @@ public class Course implements Serializable{
     private int openYear;
     private int academicYear;
     private int professorId;
+    private int ects;
+    private int credits;
 
     public Course(){}
 
-    public Course(int id, String courseName, int professorId, int facultyId, int departmentId, int academicYear, int openYear) {
+    public Course(int id, String courseName, int professorId, int facultyId, int departmentId, int academicYear, int openYear, int ects, int credits) {
         this.id = id;
         this.courseName = courseName;
         this.professorId = professorId;
@@ -22,6 +24,8 @@ public class Course implements Serializable{
         this.departmentId = departmentId;
         this.academicYear = academicYear;
         this.openYear = openYear;
+        this.ects = ects;
+        this.credits = credits;
     }
 
     public int getId() {
@@ -78,5 +82,21 @@ public class Course implements Serializable{
 
     public void setProfessorId(int professorId) {
         this.professorId = professorId;
+    }
+
+    public int getEcts() {
+        return ects;
+    }
+
+    public void setEcts(int ects) {
+        this.ects = ects;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 }
