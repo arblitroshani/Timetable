@@ -125,7 +125,6 @@ public class DayViewActivity extends AppCompatActivity {
                                 GenericTypeIndicator<ArrayList<Integer>> t = new GenericTypeIndicator<ArrayList<Integer>>() {};
                                 courseEventListID = dataSnapshot.getValue(t);
                             }
-
                             @Override public void onCancelled(DatabaseError databaseError) {}
                         });
 
@@ -135,16 +134,13 @@ public class DayViewActivity extends AppCompatActivity {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     courseEventList.add(dataSnapshot.getValue(CourseEvent.class));
                                 }
-
                                 @Override public void onCancelled(DatabaseError databaseError) {}
                             });
                         }
                     }
-
                     @Override public void onCancelled(DatabaseError databaseError) {}
                 });
             }
-
             @Override public void onCancelled(DatabaseError databaseError) {}
         });
     }
