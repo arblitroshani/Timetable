@@ -1,6 +1,14 @@
 package com.arbli.timetable.data;
 
 import com.arbli.timetable.model.CourseEvent;
+import com.arbli.timetable.model.Department;
+import com.arbli.timetable.model.Student;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,25 +17,79 @@ public class DataPopulate {
 
     private static DataPopulate instance = null;
 
-    public static ArrayList<CourseEvent> mEvents;
-    public static ArrayList<CourseEvent>[] week;
+    public ArrayList<CourseEvent> mEvents;
+    public ArrayList<CourseEvent>[] week;
+    private ArrayList<Integer> courseEventListID;
 
-    public static DataPopulate getInstance(ArrayList<CourseEvent> courseEvents) {
+    private Student currentStudent;
+    private Department currentDepartment;
+    private int currentStudentDepartmentID;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference studentReference;
+    private DatabaseReference departmentReference;
+    private DatabaseReference courseEventReference;
+    private DatabaseReference courseEventList1Reference;
+
+    public static DataPopulate getInstance() {
         if (instance == null) {
-            instance = new DataPopulate(courseEvents);
+            instance = new DataPopulate();
         }
         return instance;
     }
 
-    public static DataPopulate getInstance() {
-        return getInstance(null);
-    }
-
-    protected DataPopulate(ArrayList<CourseEvent> courseEvents) {
-        mEvents = courseEvents;
+    protected DataPopulate() {
+        mEvents = new ArrayList<>();
+        courseEventListID = new ArrayList<>();
         week = (ArrayList<CourseEvent>[]) new ArrayList[6];
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        studentReference = firebaseDatabase.getReference().child("Student");
+        departmentReference = firebaseDatabase.getReference().child("Department");
+        courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
+        courseEventList1Reference = firebaseDatabase.getReference().child("CourseEventList1");
+
+        getStudent();
         prepareWeekList();
+    }
+
+    private void getStudent() {
+        studentReference.orderByChild("name").equalTo("Deni").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentStudent = dataSnapshot.getValue(Student.class);
+
+                currentStudentDepartmentID = currentStudent.getDepartmentId();
+
+                departmentReference.orderByChild("id").equalTo(currentStudentDepartmentID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currentDepartment = dataSnapshot.getValue(Department.class);
+
+                        courseEventList1Reference.child(currentDepartment.getId()+"").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                GenericTypeIndicator<ArrayList<Integer>> t = new GenericTypeIndicator<ArrayList<Integer>>() {};
+                                courseEventListID = dataSnapshot.getValue(t);
+                            }
+                            @Override public void onCancelled(DatabaseError databaseError) {}
+                        });
+
+                        for(int i = 0; i < courseEventListID.size(); i++){
+                            courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    mEvents.add(dataSnapshot.getValue(CourseEvent.class));
+                                }
+                                @Override public void onCancelled(DatabaseError databaseError) {}
+                            });
+                        }
+                    }
+                    @Override public void onCancelled(DatabaseError databaseError) {}
+                });
+            }
+            @Override public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void prepareWeekList() {
@@ -37,10 +99,6 @@ public class DataPopulate {
         int mEventsSize = mEvents.size();
         for (int i = 0; i < mEventsSize; i++)
             week[mEvents.get(i).getDayOfWeek()].add(mEvents.get(i));
-    }
-
-    public int courseEventsCnt() {
-        return mEvents.size();
     }
 
     public ArrayList<CourseEvent> getCoursesOfDay(int day) {
