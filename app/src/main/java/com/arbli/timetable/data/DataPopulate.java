@@ -62,7 +62,7 @@ public class DataPopulate {
                 index++;
             } else {
                 for (; i < tmp.getStartingHour() && i <= 12; i++)
-                   // courseEventsFinal.add(new CourseEvent(0));
+                    courseEventsFinal.add(new CourseEvent(0));
                 i--;
             }
         }

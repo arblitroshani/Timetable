@@ -24,6 +24,10 @@ public class CourseEvent implements Comparable<CourseEvent>, Serializable {
         this.color = color;
     }
 
+    public CourseEvent(int duration) {
+        this.duration = 0;
+    }
+
     public int getId() {
         return id;
     }

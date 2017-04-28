@@ -140,10 +140,10 @@ public class LoginActivity extends AppCompatActivity {
         Department d1 = new Department(Const.DEPARTMENT_CEN_ID,"CEN",0);
         Department d2 = new Department(Const.DEPARTMENT_ECE_ID,"ECE",1);
 
-        d1.setCourseList1(cenCourses);
-        d1.setCourseEventList1(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
-        d2.setCourseList1(eceCourses);
-        d2.setCourseEventList1(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
+        reference.child("CourseList1").child("0").setValue(cenCourses);
+        reference.child("CourseList1").child("1").setValue(eceCourses);
+        reference.child("CourseEventList1").child("0").setValue(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
+        reference.child("CourseEventList1").child("1").setValue(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
 
         reference.child("Department").push().setValue(d1);
         reference.child("Department").push().setValue(d2);

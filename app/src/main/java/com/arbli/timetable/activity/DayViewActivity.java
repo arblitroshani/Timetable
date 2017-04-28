@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.arbli.timetable.R;
 import com.arbli.timetable.adapter.SectionsPagerAdapter;
@@ -24,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -46,6 +46,8 @@ public class DayViewActivity extends AppCompatActivity {
     private DatabaseReference studentReference;
     private DatabaseReference departmentReference;
     private DatabaseReference courseEventReference;
+    private DatabaseReference courseEventList1Reference;
+    private DatabaseReference courseList1Reference;
 
     private DataPopulate dp;
 
@@ -63,6 +65,8 @@ public class DayViewActivity extends AppCompatActivity {
         studentReference = firebaseDatabase.getReference().child("Student");
         departmentReference = firebaseDatabase.getReference().child("Department");
         courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
+        courseEventList1Reference = firebaseDatabase.getReference().child("CourseEventList1");
+        courseList1Reference = firebaseDatabase.getReference().child("CourseList1");
         getStudent();
         dp = DataPopulate.getInstance(courseEventList);
 
@@ -84,7 +88,7 @@ public class DayViewActivity extends AppCompatActivity {
         if (day == Calendar.SUNDAY) day = Calendar.MONDAY;
         tabLayout.getTabAt(day - Calendar.MONDAY).select();
 
-        int minTotal = hour*60 + minutes; // TODO put it in onResume
+        int minTotal = hour*60 + minutes;
         if (minTotal >= Const.SCHOOL_START_MINUTES && minTotal <= Const.SCHOOL_END_MINUTES) {
             int position = hour - 8;
             if (minutes < 45) position--;
@@ -114,8 +118,16 @@ public class DayViewActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         currentDepartment = dataSnapshot.getValue(Department.class);
-                        Toast.makeText(DayViewActivity.this, currentDepartment.getName()+"", Toast.LENGTH_SHORT).show();
-                        courseEventListID = currentDepartment.getCourseEventList1(); // null
+
+                        courseEventList1Reference.child(currentDepartment.getId()+"").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                GenericTypeIndicator<ArrayList<Integer>> t = new GenericTypeIndicator<ArrayList<Integer>>() {};
+                                courseEventListID = dataSnapshot.getValue(t);
+                            }
+
+                            @Override public void onCancelled(DatabaseError databaseError) {}
+                        });
 
                         for(int i = 0; i < courseEventListID.size(); i++){
                             courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
@@ -124,24 +136,17 @@ public class DayViewActivity extends AppCompatActivity {
                                     courseEventList.add(dataSnapshot.getValue(CourseEvent.class));
                                 }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                }
+                                @Override public void onCancelled(DatabaseError databaseError) {}
                             });
                         }
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    @Override public void onCancelled(DatabaseError databaseError) {}
                 });
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
 
