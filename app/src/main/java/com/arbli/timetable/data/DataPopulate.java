@@ -69,8 +69,7 @@ public class DataPopulate {
                         courseEventList1Reference.child(currentDepartment.getId()+"").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                GenericTypeIndicator<ArrayList<Integer>> t = new GenericTypeIndicator<ArrayList<Integer>>() {};
-                                courseEventListID = dataSnapshot.getValue(t);
+                                courseEventListID = dataSnapshot.getValue(new GenericTypeIndicator<ArrayList<Integer>>(){});
                             }
                             @Override public void onCancelled(DatabaseError databaseError) {}
                         });
