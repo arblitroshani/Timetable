@@ -6,11 +6,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.arbli.timetable.constant.Const;
 import com.arbli.timetable.fragment.PlaceholderFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+    private static final String TAG = "TAG";
+
+    private DatabaseReference mDatabase;
+
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
