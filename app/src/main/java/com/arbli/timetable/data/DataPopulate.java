@@ -36,20 +36,20 @@ public class DataPopulate {
     }
 
     private void addData() {
-        mProfessors.add(new Professor("Elton Domnori", "edomnori", Const.TITLE_DR, "E210"));
-        mProfessors.add(new Professor("Arban Uka", "auka", Const.TITLE_DR, "E211"));
-        mProfessors.add(new Professor("Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010"));
-
-        mCourses.add(new Course("Introduction to Database", mProfessors.get(0), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        mCourses.add(new Course("Numerical Analysis", mProfessors.get(1), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-        mCourses.add(new Course("Digital Design", mProfessors.get(2), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-
-        mEvents.add(new CourseEvent(mCourses.get(0), "E110", 1, 3, Const.WEEK_MON, 0));
-        mEvents.add(new CourseEvent(mCourses.get(1), "A131", 5, 2, Const.WEEK_MON, 1));
-        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 7, 2, Const.WEEK_MON, 2));
-        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 3, Const.WEEK_MON, 3));
-        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 1, Const.WEEK_TUE, 4));
-        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 4, 3, Const.WEEK_THU, 3));
+//        mProfessors.add(new Professor("Elton Domnori", "edomnori", Const.TITLE_DR, "E210"));
+//        mProfessors.add(new Professor("Arban Uka", "auka", Const.TITLE_DR, "E211"));
+//        mProfessors.add(new Professor("Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010"));
+//
+//        mCourses.add(new Course("Introduction to Database", mProfessors.get(0), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+//        mCourses.add(new Course("Numerical Analysis", mProfessors.get(1), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+//        mCourses.add(new Course("Digital Design", mProfessors.get(2), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+//
+//        mEvents.add(new CourseEvent(mCourses.get(0), "E110", 1, 3, Const.WEEK_MON, 0));
+//        mEvents.add(new CourseEvent(mCourses.get(1), "A131", 5, 2, Const.WEEK_MON, 1));
+//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 7, 2, Const.WEEK_MON, 2));
+//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 3, Const.WEEK_MON, 3));
+//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 1, Const.WEEK_TUE, 4));
+//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 4, 3, Const.WEEK_THU, 3));
     }
 
     private void prepareWeekList() {
@@ -84,7 +84,7 @@ public class DataPopulate {
                 index++;
             } else {
                 for (; i < tmp.getStartingHour() && i <= 12; i++)
-                    courseEventsFinal.add(new CourseEvent(0));
+                   // courseEventsFinal.add(new CourseEvent(0));
                 i--;
             }
         }

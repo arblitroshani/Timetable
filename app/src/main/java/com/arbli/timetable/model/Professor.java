@@ -5,28 +5,32 @@ import java.util.ArrayList;
 
 public class Professor implements Serializable {
 
-    private static int id_cnt=0;
-
     private int id;
     private String name;
     private String shortName;
     private String title;
     private String office;
-
+    private int facultyId;
     private ArrayList<Integer> courseIdList;
 
-    public Professor(String name, String shortName, String title, String office, ArrayList<Integer> courseIdList) {
-        this(name, shortName, title, office);
-        this.courseIdList = courseIdList;
+    public Professor(){}
 
-    }
-
-    public Professor(String name, String shortName, String title, String office) {
-        this.id = id_cnt++;;
+    public Professor(int id, String name, String shortName, String title, String office, int facultyId, ArrayList<Integer> courseIdList) {
+        this.id = id;
         this.name = name;
         this.shortName = shortName;
         this.title = title;
         this.office = office;
+        this.facultyId = facultyId;
+        this.courseIdList = courseIdList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -61,6 +65,14 @@ public class Professor implements Serializable {
         this.office = office;
     }
 
+    public int getFacultyId() {
+        return facultyId;
+    }
+
+    public void setFacultyId(int facultyId) {
+        this.facultyId = facultyId;
+    }
+
     public ArrayList<Integer> getCourseIdList() {
         return courseIdList;
     }
@@ -69,3 +81,4 @@ public class Professor implements Serializable {
         this.courseIdList = courseIdList;
     }
 }
+

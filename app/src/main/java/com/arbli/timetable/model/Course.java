@@ -4,23 +4,22 @@ import java.io.Serializable;
 
 public class Course implements Serializable{
 
-    private static int id_cnt = 0;
     private int id;
-
-    private int faculty;
-    private int department;
+    private String courseName;
+    private int facultyId;
+    private int departmentId;
     private int openYear;
     private int academicYear;
+    private int professorId;
 
-    private String courseName;
-    private Professor professor;    // private int professorId;
+    public Course(){}
 
-    public Course(String courseName, Professor professor, int faculty, int department, int academicYear, int openYear) {
-        id = id_cnt++;
+    public Course(int id, String courseName, int professorId, int facultyId, int departmentId, int academicYear, int openYear) {
+        this.id = id;
         this.courseName = courseName;
-        this.professor = professor;
-        this.faculty = faculty;
-        this.department = department;
+        this.professorId = professorId;
+        this.facultyId = facultyId;
+        this.departmentId = departmentId;
         this.academicYear = academicYear;
         this.openYear = openYear;
     }
@@ -29,36 +28,8 @@ public class Course implements Serializable{
         return id;
     }
 
-    public int getAcademicYear() {
-        return academicYear;
-    }
-
-    public void setAcademicYear(int academicYear) {
-        this.academicYear = academicYear;
-    }
-
-    public int getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(int faculty) {
-        this.faculty = faculty;
-    }
-
-    public int getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(int department) {
-        this.department = department;
-    }
-
-    public int getOpenYear() {
-        return openYear;
-    }
-
-    public void setOpenYear(int openYear) {
-        this.openYear = openYear;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -69,11 +40,43 @@ public class Course implements Serializable{
         this.courseName = courseName;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public int getFacultyId() {
+        return facultyId;
     }
 
-    public void setProfessor(String professorName) {
-        this.professor = professor;
+    public void setFacultyId(int facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public int getOpenYear() {
+        return openYear;
+    }
+
+    public void setOpenYear(int openYear) {
+        this.openYear = openYear;
+    }
+
+    public int getAcademicYear() {
+        return academicYear;
+    }
+
+    public void setAcademicYear(int academicYear) {
+        this.academicYear = academicYear;
+    }
+
+    public int getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
 }
