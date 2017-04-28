@@ -149,8 +149,6 @@ public class LoginActivity extends AppCompatActivity {
 
         reference.child("Department").push().setValue(d1);
         reference.child("Department").push().setValue(d2);
-
-
     }
 
 

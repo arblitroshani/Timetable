@@ -15,7 +15,16 @@ import android.view.ViewGroup;
 import com.arbli.timetable.R;
 import com.arbli.timetable.adapter.SectionsPagerAdapter;
 import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.model.CourseEvent;
+import com.arbli.timetable.model.Department;
+import com.arbli.timetable.model.Student;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DayViewActivity extends AppCompatActivity {
@@ -24,6 +33,22 @@ public class DayViewActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private View mTimeIndicator;
     private Resources resources;
+
+    private Student currentStudent;
+    private Department currentDepartment;
+    private int currentStudentDepartmentID;
+    private ArrayList<Integer> courseEventListID = new ArrayList<>();
+    private ArrayList<CourseEvent> courseEventList = new ArrayList<>();
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference studentReference;
+    private DatabaseReference departmentReference;
+    private DatabaseReference courseEventReference;
+
+
+    //TODO : Get student by userid(extra), get department of the student,get course event list from department
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +70,13 @@ public class DayViewActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         mTimeIndicator = findViewById(R.id.timeIndicator);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        studentReference = firebaseDatabase.getReference().child("Students");
+        departmentReference = firebaseDatabase.getReference().child("Department");
+        courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
+
+        getStudent();
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -69,6 +101,53 @@ public class DayViewActivity extends AppCompatActivity {
         }
 
     }
+
+    private void getStudent(){
+
+         studentReference.orderByChild("id").equalTo(getIntent().getStringExtra("USER_ID")).addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(DataSnapshot dataSnapshot) {
+                    currentStudent=dataSnapshot.getValue(Student.class);
+
+                    currentStudentDepartmentID=currentStudent.getDepartmentId();
+                    departmentReference.orderByChild("id").equalTo(currentStudentDepartmentID).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            currentDepartment = dataSnapshot.getValue(Department.class);
+                            courseEventListID = currentDepartment.getCourseEventList1();
+
+                            for(int i=0;i<courseEventListID.size();i++){
+
+                                courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        courseEventList.add(dataSnapshot.getValue(CourseEvent.class));
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+             }
+
+             @Override
+             public void onCancelled(DatabaseError databaseError) {
+
+             }
+         });
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
