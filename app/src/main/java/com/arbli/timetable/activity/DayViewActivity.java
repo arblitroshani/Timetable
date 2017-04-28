@@ -48,10 +48,6 @@ public class DayViewActivity extends AppCompatActivity {
 
     private DataPopulate dp;
 
-    //TODO : Get student by userid(extra), get department of the student,get course event list from department
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +57,13 @@ public class DayViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         resources = getResources();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        studentReference = firebaseDatabase.getReference().child("Students");
+        departmentReference = firebaseDatabase.getReference().child("Department");
+        courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
+        getStudent();
+        dp = DataPopulate.getInstance(courseEventList);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -72,15 +75,6 @@ public class DayViewActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         mTimeIndicator = findViewById(R.id.timeIndicator);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        studentReference = firebaseDatabase.getReference().child("Students");
-        departmentReference = firebaseDatabase.getReference().child("Department");
-        courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
-
-        getStudent();
-
-        dp = DataPopulate.getInstance(courseEventList);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
