@@ -17,8 +17,8 @@ public class DataPopulate {
 
     private static DataPopulate instance = null;
 
-    public ArrayList<CourseEvent> mEvents;
-    public ArrayList<CourseEvent>[] week;
+    private ArrayList<CourseEvent> mEvents;
+    private ArrayList<CourseEvent>[] week;
     private ArrayList<Integer> courseEventListID;
 
     private Student currentStudent;
@@ -75,7 +75,7 @@ public class DataPopulate {
                             @Override public void onCancelled(DatabaseError databaseError) {}
                         });
 
-                        for(int i = 0; i < courseEventListID.size(); i++){
+                        for (int i = 0; i < courseEventListID.size(); i++){
                             courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
