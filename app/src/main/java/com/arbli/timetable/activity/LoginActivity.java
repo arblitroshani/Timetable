@@ -1,10 +1,9 @@
 package com.arbli.timetable.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,9 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
-import static com.arbli.timetable.data.DataPopulate.mCourses;
-import static com.arbli.timetable.data.DataPopulate.mProfessors;
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -142,8 +139,18 @@ public class LoginActivity extends AppCompatActivity {
         reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FAE_ID,"FAE",new ArrayList<Integer>(Const.DEPARTMENT_ARCH_ID)));
         reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FEAS_ID,"FEAS",new ArrayList<Integer>(Const.DEPARTMENT_CEN_ID)));
 
-        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_CEN_ID,"CEN",0));
-        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_ECE_ID,"ECE",1));
+        Department d1 = new Department(Const.DEPARTMENT_CEN_ID,"CEN",0);
+        Department d2 = new Department(Const.DEPARTMENT_ECE_ID,"ECE",1);
+
+        d1.setCourseList1(cenCourses);
+        d1.setCourseEventList1(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
+        d2.setCourseList1(eceCourses);
+        d2.setCourseEventList1(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
+
+        reference.child("Department").push().setValue(d1);
+        reference.child("Department").push().setValue(d2);
+
+
     }
 
 
