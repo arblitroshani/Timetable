@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.arbli.timetable.R;
 import com.arbli.timetable.adapter.SectionsPagerAdapter;
@@ -102,7 +103,7 @@ public class DayViewActivity extends AppCompatActivity {
 
     private void getStudent(){
 
-        studentReference.orderByChild("id").equalTo(getIntent().getStringExtra("USER_ID")).addValueEventListener(new ValueEventListener() {
+        studentReference.orderByChild("name").equalTo("Deni").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 currentStudent = dataSnapshot.getValue(Student.class);
@@ -113,7 +114,8 @@ public class DayViewActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         currentDepartment = dataSnapshot.getValue(Department.class);
-                        courseEventListID = currentDepartment.getCourseEventList1();
+                        Toast.makeText(DayViewActivity.this, currentDepartment.getName()+"", Toast.LENGTH_SHORT).show();
+                        courseEventListID = currentDepartment.getCourseEventList1(); // null
 
                         for(int i = 0; i < courseEventListID.size(); i++){
                             courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
