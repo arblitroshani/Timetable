@@ -115,12 +115,10 @@ public class LoginActivity extends AppCompatActivity {
         cenCourses.add(1);
         cenCourses.add(2);
 
-
         ArrayList<Integer> eceCourses= new ArrayList<Integer>();
-        cenCourses.add(0);
-        cenCourses.add(1);
-        cenCourses.add(2);
-
+        eceCourses.add(0);
+        eceCourses.add(1);
+        eceCourses.add(2);
 
         reference.child("Course").push().setValue(new Course(0,"Introduction to Database", 0, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 1, 2017,4,10));
         reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", 1, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,4,10));

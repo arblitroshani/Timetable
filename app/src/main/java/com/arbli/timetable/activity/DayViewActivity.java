@@ -7,7 +7,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,52 +102,43 @@ public class DayViewActivity extends AppCompatActivity {
 
     private void getStudent(){
 
+        studentReference.orderByChild("id").equalTo(getIntent().getStringExtra("USER_ID")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentStudent = dataSnapshot.getValue(Student.class);
 
-        Log.e("UID",(getIntent().getStringExtra("USER_ID")));
+                currentStudentDepartmentID = currentStudent.getDepartmentId();
 
-        //TODO: FIX QUERY FOR STUDENT_ID
-         studentReference.orderByChild("id").equalTo(getIntent().getStringExtra("USER_ID")).addValueEventListener(new ValueEventListener() {
-             @Override
-             public void onDataChange(DataSnapshot dataSnapshot) {
-                 Log.e("TEST",dataSnapshot.getValue(Student.class).getName());
-                    currentStudent=dataSnapshot.getValue(Student.class);
+                departmentReference.orderByChild("id").equalTo(currentStudentDepartmentID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currentDepartment = dataSnapshot.getValue(Department.class);
+                        courseEventListID = currentDepartment.getCourseEventList1();
 
-                    currentStudentDepartmentID=currentStudent.getDepartmentId();
-                    departmentReference.orderByChild("id").equalTo(currentStudentDepartmentID).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            currentDepartment = dataSnapshot.getValue(Department.class);
-                            courseEventListID = currentDepartment.getCourseEventList1();
+                        for(int i = 0; i < courseEventListID.size(); i++){
+                            courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    courseEventList.add(dataSnapshot.getValue(CourseEvent.class));
+                                }
 
-                            for(int i=0;i<courseEventListID.size();i++){
-
-                                courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        courseEventList.add(dataSnapshot.getValue(CourseEvent.class));
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-                            }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
 
-                        }
-                    });
-             }
-
-             @Override
-             public void onCancelled(DatabaseError databaseError) {
-
-             }
-         });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 
