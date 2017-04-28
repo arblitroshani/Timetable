@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.arbli.timetable.R;
 import com.arbli.timetable.adapter.SectionsPagerAdapter;
 import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.data.DataPopulate;
 import com.arbli.timetable.model.CourseEvent;
 import com.arbli.timetable.model.Department;
 import com.arbli.timetable.model.Student;
@@ -45,6 +46,7 @@ public class DayViewActivity extends AppCompatActivity {
     private DatabaseReference departmentReference;
     private DatabaseReference courseEventReference;
 
+    private DataPopulate dp;
 
     //TODO : Get student by userid(extra), get department of the student,get course event list from department
 
@@ -77,6 +79,8 @@ public class DayViewActivity extends AppCompatActivity {
         courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
 
         getStudent();
+
+        dp = DataPopulate.getInstance(courseEventList);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);

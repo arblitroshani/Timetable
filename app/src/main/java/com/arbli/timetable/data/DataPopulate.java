@@ -1,9 +1,6 @@
 package com.arbli.timetable.data;
 
-import com.arbli.timetable.constant.Const;
-import com.arbli.timetable.model.Course;
 import com.arbli.timetable.model.CourseEvent;
-import com.arbli.timetable.model.Professor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,43 +10,24 @@ public class DataPopulate {
     private static DataPopulate instance = null;
 
     public static ArrayList<CourseEvent> mEvents;
-    public static ArrayList<Course> mCourses;
-    public static ArrayList<Professor> mProfessors;
     public static ArrayList<CourseEvent>[] week;
 
-
-    public static DataPopulate getInstance() {
+    public static DataPopulate getInstance(ArrayList<CourseEvent> courseEvents) {
         if (instance == null) {
-            instance = new DataPopulate();
+            instance = new DataPopulate(courseEvents);
         }
         return instance;
     }
 
-    protected DataPopulate() {
-        mEvents = new ArrayList<>();
-        mCourses = new ArrayList<>();
-        mProfessors = new ArrayList<>();
-        week = (ArrayList<CourseEvent>[]) new ArrayList[6];
-
-        addData();
-        prepareWeekList();
+    public static DataPopulate getInstance() {
+        return getInstance(null);
     }
 
-    private void addData() {
-//        mProfessors.add(new Professor("Elton Domnori", "edomnori", Const.TITLE_DR, "E210"));
-//        mProfessors.add(new Professor("Arban Uka", "auka", Const.TITLE_DR, "E211"));
-//        mProfessors.add(new Professor("Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010"));
-//
-//        mCourses.add(new Course("Introduction to Database", mProfessors.get(0), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-//        mCourses.add(new Course("Numerical Analysis", mProfessors.get(1), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-//        mCourses.add(new Course("Digital Design", mProfessors.get(2), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-//
-//        mEvents.add(new CourseEvent(mCourses.get(0), "E110", 1, 3, Const.WEEK_MON, 0));
-//        mEvents.add(new CourseEvent(mCourses.get(1), "A131", 5, 2, Const.WEEK_MON, 1));
-//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 7, 2, Const.WEEK_MON, 2));
-//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 3, Const.WEEK_MON, 3));
-//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 10, 1, Const.WEEK_TUE, 4));
-//        mEvents.add(new CourseEvent(mCourses.get(2), "A130", 4, 3, Const.WEEK_THU, 3));
+    protected DataPopulate(ArrayList<CourseEvent> courseEvents) {
+        mEvents = courseEvents;
+        week = (ArrayList<CourseEvent>[]) new ArrayList[6];
+
+        prepareWeekList();
     }
 
     private void prepareWeekList() {
@@ -69,7 +47,7 @@ public class DataPopulate {
         return week[day];
     }
 
-    public ArrayList<CourseEvent> getListReadyEvents(ArrayList<CourseEvent> mEventsFiltered) {
+    private ArrayList<CourseEvent> getListReadyEvents(ArrayList<CourseEvent> mEventsFiltered) {
         ArrayList<CourseEvent> courseEventsFinal = new ArrayList<>();
         int initialCount = mEventsFiltered.size();
         int index = 0;
