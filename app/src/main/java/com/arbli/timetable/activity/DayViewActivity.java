@@ -7,6 +7,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +60,7 @@ public class DayViewActivity extends AppCompatActivity {
         resources = getResources();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        studentReference = firebaseDatabase.getReference().child("Students");
+        studentReference = firebaseDatabase.getReference().child("Student");
         departmentReference = firebaseDatabase.getReference().child("Department");
         courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
         getStudent();
@@ -102,9 +103,14 @@ public class DayViewActivity extends AppCompatActivity {
 
     private void getStudent(){
 
+
+        Log.e("UID",(getIntent().getStringExtra("USER_ID")));
+
+        //TODO: FIX QUERY FOR STUDENT_ID
          studentReference.orderByChild("id").equalTo(getIntent().getStringExtra("USER_ID")).addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
+                 Log.e("TEST",dataSnapshot.getValue(Student.class).getName());
                     currentStudent=dataSnapshot.getValue(Student.class);
 
                     currentStudentDepartmentID=currentStudent.getDepartmentId();
