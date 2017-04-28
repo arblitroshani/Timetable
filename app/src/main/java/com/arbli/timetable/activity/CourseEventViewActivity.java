@@ -38,7 +38,7 @@ public class CourseEventViewActivity extends AppCompatActivity {
 
         //tvCourseName.setText(mCourseEvent.getCourse().getCourseName());
         //tvProfName.setText(mCourseEvent.getCourse().getProfessor().getName());
-        tvClassroom.setText(mCourseEvent.getClassroom());
+        //tvClassroom.setText(mCourseEvent.getClassroom());
     }
 
 }

@@ -64,16 +64,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         int duration = tmp.getDuration();
         if (duration == 0) return;
 
-        String courseName = tmp.getCourse().getCourseName();
+        //String courseName = tmp.getCourse().getCourseName();
         String classroom = tmp.getClassroom();
         int color = ResourcesCompat.getColor(res, Const.COLOR_ARRAY[tmp.getColor()], null);
-        ((EventViewHolder) holder).tvCourseName.setText(courseName);
+        //((EventViewHolder) holder).tvCourseName.setText(courseName);
         ((EventViewHolder) holder).tvClassroom.setText(classroom);
         ((EventViewHolder) holder).cv.setCardBackgroundColor(color);
 
         if (duration != 1) {
-            String professorName = tmp.getCourse().getProfessor().getName();
-            ((EventViewHolder) holder).tvProfName.setText(professorName);
+          //  String professorName = tmp.getCourse().getProfessor().getName();
+          //  ((EventViewHolder) holder).tvProfName.setText(professorName);
         }
     }
 

@@ -14,6 +14,8 @@ import com.arbli.timetable.R;
 import com.arbli.timetable.constant.Const;
 import com.arbli.timetable.model.Course;
 import com.arbli.timetable.model.CourseEvent;
+import com.arbli.timetable.model.Department;
+import com.arbli.timetable.model.Faculty;
 import com.arbli.timetable.model.Professor;
 import com.arbli.timetable.model.Student;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +32,6 @@ import static com.arbli.timetable.data.DataPopulate.mCourses;
 import static com.arbli.timetable.data.DataPopulate.mProfessors;
 
 public class LoginActivity extends AppCompatActivity {
-
 
     private Button loginButton;
     private EditText usernameText,passwordText;
@@ -112,19 +113,38 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        reference.child("Course").push().setValue(new Course(0,"Introduction to Database", mProfessors.get(0).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,2015,4,10));
-//        reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", mProfessors.get(1).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
-//        reference.child("Course").push().setValue(new Course(2,"Digital Design", mProfessors.get(2).getId(), Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017));
+        ArrayList<Integer> cenCourses= new ArrayList<Integer>();
+        cenCourses.add(0);
+        cenCourses.add(1);
+        cenCourses.add(2);
 
-//        reference.child("CourseEvent").push().setValue(new CourseEvent(0,mCourses.get(0).getId(), "E110", 1, 3, Const.WEEK_MON, 0));
-//        reference.child("CourseEvent").push().setValue(new CourseEvent(1,mCourses.get(1).getId(), "A131", 5, 2, Const.WEEK_MON, 1));
-//        reference.child("CourseEvent").push().setValue(new CourseEvent(2,mCourses.get(2).getId(), "A130", 7, 2, Const.WEEK_MON, 2));
-//        reference.child("CourseEvent").push().setValue(new CourseEvent(3,mCourses.get(2).getId(), "A130", 10, 3, Const.WEEK_MON, 3));
-//        reference.child("CourseEvent").push().setValue(new CourseEvent(4,mCourses.get(2).getId(), "A130", 4, 3, Const.WEEK_THU, 3));
 
-//        reference.child("Professor").push().setValue(new Professor(0,"Elton Domnori", "edomnori", Const.TITLE_DR, "E210",Const.FACULTY_FAE_ID,new ArrayList<Integer>(0)));
-//        reference.child("Professor").push().setValue(new Professor(1,"Arban Uka", "auka", Const.TITLE_DR, "E211",Const.FACULTY_FAE_ID,new ArrayList<Integer>(1)));
-//        reference.child("Professor").push().setValue(new Professor(2,"Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010",Const.FACULTY_FAE_ID,new ArrayList<Integer>(2)));
+        ArrayList<Integer> eceCourses= new ArrayList<Integer>();
+        cenCourses.add(0);
+        cenCourses.add(1);
+        cenCourses.add(2);
+
+
+        reference.child("Course").push().setValue(new Course(0,"Introduction to Database", 0, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 1, 2017,4,10));
+        reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", 1, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,4,10));
+        reference.child("Course").push().setValue(new Course(2,"Digital Design", 2, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 3, 2017,4,10));
+
+        reference.child("CourseEvent").push().setValue(new CourseEvent(0,0, "E110", 1, 3, Const.WEEK_MON, 0));
+        reference.child("CourseEvent").push().setValue(new CourseEvent(1,1, "A131", 5, 2, Const.WEEK_MON, 1));
+        reference.child("CourseEvent").push().setValue(new CourseEvent(2,2, "A130", 7, 2, Const.WEEK_MON, 2));
+        reference.child("CourseEvent").push().setValue(new CourseEvent(3,1, "A130", 10, 3, Const.WEEK_MON, 3));
+        reference.child("CourseEvent").push().setValue(new CourseEvent(4,1, "A130", 4, 3, Const.WEEK_THU, 3));
+
+        reference.child("Professor").child("4").setValue(new Professor(0,"Elton Domnori", "edomnori", Const.TITLE_DR, "E210",Const.FACULTY_FAE_ID,new ArrayList<Integer>(0)));
+        reference.child("Professor").push().setValue(new Professor(1,"Arban Uka", "auka", Const.TITLE_DR, "E211",Const.FACULTY_FAE_ID,new ArrayList<Integer>(1)));
+        reference.child("Professor").push().setValue(new Professor(2,"Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010",Const.FACULTY_FAE_ID,new ArrayList<Integer>(2)));
+
+        reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FAE_ID,"FAE",new ArrayList<Integer>(Const.DEPARTMENT_ARCH_ID)));
+        reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FEAS_ID,"FEAS",new ArrayList<Integer>(Const.DEPARTMENT_CEN_ID)));
+
+        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_CEN_ID,"CEN",0));
+        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_ECE_ID,"ECE",0));
+
     }
 
 
