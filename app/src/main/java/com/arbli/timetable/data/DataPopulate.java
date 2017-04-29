@@ -1,8 +1,14 @@
 package com.arbli.timetable.data;
 
+import android.util.Log;
+
+import com.arbli.timetable.model.Course;
 import com.arbli.timetable.model.CourseEvent;
 import com.arbli.timetable.model.Department;
 import com.arbli.timetable.model.Student;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +36,8 @@ public class DataPopulate {
     private DatabaseReference departmentReference;
     private DatabaseReference courseEventReference;
     private DatabaseReference courseEventList1Reference;
+    private String UID;
+
 
     public static DataPopulate getInstance() {
         if (instance == null) {
@@ -43,51 +51,78 @@ public class DataPopulate {
         courseEventListID = new ArrayList<>();
         week = (ArrayList<CourseEvent>[]) new ArrayList[6];
 
+        UID=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         studentReference = firebaseDatabase.getReference().child("Student");
-        departmentReference = firebaseDatabase.getReference().child("Department");
-        courseEventReference = firebaseDatabase.getReference().child("CourseEvent");
-        courseEventList1Reference = firebaseDatabase.getReference().child("CourseEventList1");
+        departmentReference = firebaseDatabase.getReferenceFromUrl("https://timetableproject-75b9c.firebaseio.com/Department");
+        courseEventReference = firebaseDatabase.getReferenceFromUrl("https://timetableproject-75b9c.firebaseio.com/CourseEvent");
+        courseEventList1Reference = firebaseDatabase.getReferenceFromUrl("https://timetableproject-75b9c.firebaseio.com/CourseEventList1");
 
         getStudent();
         prepareWeekList();
     }
 
     private void getStudent() {
-        studentReference.orderByChild("name").equalTo("Deni").addValueEventListener(new ValueEventListener() {
+
+        studentReference.orderByChild("id").equalTo(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                currentStudent = dataSnapshot.getValue(Student.class);
+                currentStudent = dataSnapshot.getChildren().iterator().next().getValue(Student.class);
+
+                Log.e("TEST_STUDENT",currentStudent.getName());
 
                 currentStudentDepartmentID = currentStudent.getDepartmentId();
 
                 departmentReference.orderByChild("id").equalTo(currentStudentDepartmentID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        currentDepartment = dataSnapshot.getValue(Department.class);
+                        currentDepartment = dataSnapshot.getChildren().iterator().next().getValue(Department.class);
 
-                        courseEventList1Reference.child(currentDepartment.getId()+"").addValueEventListener(new ValueEventListener() {
+                        Log.e("TEST_DEPARTMENT",currentDepartment.getName() + " " + currentDepartment.getId());
+
+                        courseEventList1Reference.orderByKey().equalTo(String.valueOf(currentDepartment.getId())).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                courseEventListID = dataSnapshot.getValue(new GenericTypeIndicator<ArrayList<Integer>>(){});
-                            }
-                            @Override public void onCancelled(DatabaseError databaseError) {}
-                        });
 
-                        for (int i = 0; i < courseEventListID.size(); i++){
-                            courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    mEvents.add(dataSnapshot.getValue(CourseEvent.class));
-                                }
-                                @Override public void onCancelled(DatabaseError databaseError) {}
-                            });
-                        }
+                                Log.e("TEST_COURSELIST",dataSnapshot.getChildrenCount()+ " ");
+
+                                courseEventListID = dataSnapshot.getChildren().iterator().next().getValue(new GenericTypeIndicator<ArrayList<Integer>>(){});
+
+
+                                for (int i = 0; i < courseEventListID.size(); i++){
+                                    courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            CourseEvent current = dataSnapshot.getChildren().iterator().next().getValue(CourseEvent.class);
+
+                                            Log.e("TEST_COURSE EVENT",current.getClassroom() + " " + current.getId());
+
+                                            mEvents.add(current);
+                                        }
+                                        @Override public void onCancelled(DatabaseError databaseError) {}
+                                    });
+                                } // mEvents if correctly filled with course events. How to show in timetable?
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-                    @Override public void onCancelled(DatabaseError databaseError) {}
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
                 });
             }
-            @Override public void onCancelled(DatabaseError databaseError) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
     }
 

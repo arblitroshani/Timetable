@@ -85,5 +85,4 @@ public class DayViewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

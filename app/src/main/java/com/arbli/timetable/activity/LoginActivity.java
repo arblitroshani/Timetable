@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("USER_ID",authResult.getUser().getUid());
                             startActivity(i);
 
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
