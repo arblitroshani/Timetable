@@ -45,8 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initializeListener();
-        initializeView();
-        //populateData();
     }
 
     private void initializeView(){
@@ -126,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeListener(){
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
         reference = firebaseDatabase.getReference();
         auth = FirebaseAuth.getInstance();
 
@@ -134,9 +133,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
+                    Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
+                    startActivity(i);
                 } else {
-                    // User is signed out
+                    initializeView();
+                    //populateData();
                 }
             }
         };
