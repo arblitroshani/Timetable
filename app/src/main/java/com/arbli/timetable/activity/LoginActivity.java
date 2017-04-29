@@ -122,16 +122,12 @@ public class LoginActivity extends AppCompatActivity {
         reference.child("CourseList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2)));
         reference.child("CourseEventList1").child("0").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
         reference.child("CourseEventList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
-
     }
 
-
     private void initializeListener(){
-
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        reference=firebaseDatabase.getReferenceFromUrl("https://timetableproject-75b9c.firebaseio.com/");
-
-        auth=FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = firebaseDatabase.getReference();
+        auth = FirebaseAuth.getInstance();
 
         authListener= new FirebaseAuth.AuthStateListener() {
             @Override
@@ -146,13 +142,11 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
     }
-
 
     @Override
     public void onStop(){
