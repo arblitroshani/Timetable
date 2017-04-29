@@ -15,11 +15,15 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.arbli.timetable.activity.CourseEventEditActivity;
 import com.arbli.timetable.activity.CourseEventViewActivity;
 import com.arbli.timetable.R;
 import com.arbli.timetable.constant.Const;
 import com.arbli.timetable.model.CourseEvent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -93,7 +97,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnTouchListener{
+    private class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnTouchListener, View.OnLongClickListener {
         private TextView tvClassroom, tvCourseName, tvProfName;
         private CardView cv;
 
@@ -108,6 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             cv.startAnimation(alphaAnimation);
             cv.setOnClickListener(this);
             cv.setOnTouchListener(this);
+            cv.setOnLongClickListener(this);
         }
 
         @Override
@@ -136,6 +141,21 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
             }
             return false;
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+
+            if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("ttproj17@gmail.com")) {
+                CourseEvent ce = courseEvents.get(getAdapterPosition());
+                Intent intent = new Intent(mContext, CourseEventEditActivity.class);
+                intent.putExtra(Const.COURSE_EVENT_OBJECT_TAG, ce);
+                mContext.startActivity(intent);
+            }
+
+            else Toast.makeText(mContext,"You have no admin privileges!",Toast.LENGTH_SHORT).show();
+
+            return true;
         }
     }
 }

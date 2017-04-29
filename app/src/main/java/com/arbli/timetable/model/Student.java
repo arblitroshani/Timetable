@@ -9,6 +9,7 @@ public class Student implements Serializable{
     private int studYear;
     private int departmentId;
     private int facultyId;
+    private boolean adminPrivilege;
 
     public Student(){}
 
@@ -19,6 +20,16 @@ public class Student implements Serializable{
         this.departmentId = departmentId;
         this.facultyId = facultyId;
     }
+
+    public Student(String id, String name, int studYear, int departmentId, int facultyId,boolean adminPrivilege) {
+        this.id = id;
+        this.name = name;
+        this.studYear = studYear;
+        this.departmentId = departmentId;
+        this.facultyId = facultyId;
+        this.adminPrivilege=adminPrivilege;
+    }
+
 
     public String getId() {
         return id;
@@ -58,6 +69,14 @@ public class Student implements Serializable{
 
     public void setFacultyId(int facultyId) {
         this.facultyId = facultyId;
+    }
+
+    public boolean isAdminPrivilege() {
+        return adminPrivilege;
+    }
+
+    public void setAdminPrivilege(boolean adminPrivilege) {
+        this.adminPrivilege = adminPrivilege;
     }
 
     @Override

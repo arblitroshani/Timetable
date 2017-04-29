@@ -13,7 +13,7 @@
             android:name=".activity.DayViewActivity"
             android:label="@string/title_activity_day_view"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CourseEventViewActivity"
             android:label="@string/title_activity_course_event_view"
@@ -30,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.CourseEventEditActivity"></activity>
     </application>
 
 </manifest>
