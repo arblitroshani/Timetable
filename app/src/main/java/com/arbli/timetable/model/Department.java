@@ -37,4 +37,11 @@ public class Department {
     public void setHeadProfessorId(int headProfessorId) {
         this.headProfessorId = headProfessorId;
     }
+
+    @Override
+    public String toString() {
+        return "Department id:" + id +
+                " name:" + name +
+                " headProfId:" + headProfessorId;
+    }
 }

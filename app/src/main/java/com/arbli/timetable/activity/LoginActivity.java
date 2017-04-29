@@ -45,12 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initializeListener();
-        //populateData();
         initializeView();
-
+        //populateData();
     }
-
-    //TODO : Query the userid(sent as extra from here) on the DayViewActivity and get all the lessons of the student department.
 
     private void initializeView(){
 
@@ -67,12 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                     auth.signInWithEmailAndPassword(usernameText.getText().toString(),passwordText.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-
-                            Intent i = new Intent(getApplicationContext(),DayViewActivity.class);
-                            i.putExtra("USER_ID",authResult.getUser().getUid());
+                            Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
                             startActivity(i);
-
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -90,13 +83,10 @@ public class LoginActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword("ddaja15@epoka.edu.al","111223").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                reference.child("Student").push().setValue(new Student(authResult.getUser().getUid(),"Deni",2017, Const.DEPARTMENT_CEN_ID,Const.FACULTY_FAE_ID));
+                reference.child("Student").push().setValue(new Student(authResult.getUser().getUid(),"Deni Daja",2017, Const.DEPARTMENT_CEN_ID,Const.FACULTY_FAE_ID));
             }
         }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
+            @Override public void onFailure(@NonNull Exception e) {}
         });
 
         auth.createUserWithEmailAndPassword("atroshani15@epoka.edu.al","111223").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -105,21 +95,8 @@ public class LoginActivity extends AppCompatActivity {
                 reference.child("Student").push().setValue(new Student(authResult.getUser().getUid(),"Arbli Troshani",2017,Const.DEPARTMENT_CEN_ID,Const.FACULTY_FAE_ID));
             }
         }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
+            @Override public void onFailure(@NonNull Exception e) {}
         });
-
-        ArrayList<Integer> cenCourses= new ArrayList<Integer>();
-        cenCourses.add(0);
-        cenCourses.add(1);
-        cenCourses.add(2);
-
-        ArrayList<Integer> eceCourses= new ArrayList<Integer>();
-        eceCourses.add(0);
-        eceCourses.add(1);
-        eceCourses.add(2);
 
         reference.child("Course").push().setValue(new Course(0,"Introduction to Database", 0, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 1, 2017,4,10));
         reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", 1, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,4,10));
@@ -138,16 +115,14 @@ public class LoginActivity extends AppCompatActivity {
         reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FAE_ID,"FAE",new ArrayList<Integer>(Const.DEPARTMENT_ARCH_ID)));
         reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FEAS_ID,"FEAS",new ArrayList<Integer>(Const.DEPARTMENT_CEN_ID)));
 
-        Department d1 = new Department(Const.DEPARTMENT_CEN_ID,"CEN",0);
-        Department d2 = new Department(Const.DEPARTMENT_ECE_ID,"ECE",1);
+        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_CEN_ID,"CEN",0));
+        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_ECE_ID,"ECE",1));
 
-        reference.child("CourseList1").child("0").setValue(cenCourses);
-        reference.child("CourseList1").child("1").setValue(eceCourses);
-        reference.child("CourseEventList1").child("0").setValue(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
-        reference.child("CourseEventList1").child("1").setValue(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4)));
+        reference.child("CourseList1").child("0").setValue(new ArrayList<>(Arrays.asList(0, 1, 2)));
+        reference.child("CourseList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2)));
+        reference.child("CourseEventList1").child("0").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
+        reference.child("CourseEventList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
 
-        reference.child("Department").push().setValue(d1);
-        reference.child("Department").push().setValue(d2);
     }
 
 

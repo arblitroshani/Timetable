@@ -12,6 +12,8 @@ public class CourseEvent implements Comparable<CourseEvent>, Serializable {
     private int dayOfWeek;
     private int color;
 
+    private Course course;
+
     public CourseEvent(){}
 
     public CourseEvent(int id, int courseId, String classroom, int startingHour, int duration, int dayOfWeek, int color) {
@@ -84,9 +86,22 @@ public class CourseEvent implements Comparable<CourseEvent>, Serializable {
         this.color = color;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     @Override
     public int compareTo(CourseEvent courseEvent) {
         return startingHour - courseEvent.getStartingHour();
+    }
+
+    @Override
+    public String toString() {
+        return "Event: id:"+id+
+                " class:" + classroom;
     }
 }

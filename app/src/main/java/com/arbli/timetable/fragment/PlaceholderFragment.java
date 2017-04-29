@@ -15,13 +15,12 @@ import com.arbli.timetable.data.DataPopulate;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_DAY = "day_of_week";
-    private static DataPopulate dp;
+    private static DataPopulate dp = DataPopulate.getInstance();
 
     public PlaceholderFragment() {
     }
 
     public static PlaceholderFragment newInstance(int day) {
-        dp = DataPopulate.getInstance();
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_DAY, day);

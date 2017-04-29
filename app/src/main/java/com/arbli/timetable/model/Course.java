@@ -14,6 +14,8 @@ public class Course implements Serializable{
     private int ects;
     private int credits;
 
+    private Professor professor;
+
     public Course(){}
 
     public Course(int id, String courseName, int professorId, int facultyId, int departmentId, int academicYear, int openYear, int ects, int credits) {
@@ -98,5 +100,13 @@ public class Course implements Serializable{
 
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }

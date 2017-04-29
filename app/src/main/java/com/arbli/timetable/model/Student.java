@@ -60,4 +60,12 @@ public class Student implements Serializable{
         this.facultyId = facultyId;
     }
 
+    @Override
+    public String toString() {
+        return "id:" + id +
+                " name:" + name +
+                " studyear:" + studYear +
+                " depid: " + departmentId +
+                " fid:" + facultyId;
+    }
 }
