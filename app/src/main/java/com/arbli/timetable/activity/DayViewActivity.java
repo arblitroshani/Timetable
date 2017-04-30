@@ -1,7 +1,9 @@
 package com.arbli.timetable.activity;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.arbli.timetable.R;
 import com.arbli.timetable.adapter.SectionsPagerAdapter;
 import com.arbli.timetable.constant.Const;
+import com.arbli.timetable.data.DataPopulate;
 
 import java.util.Calendar;
 
@@ -24,6 +27,10 @@ public class DayViewActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private View mTimeIndicator;
     private Resources resources;
+    private TabLayout tabLayout;
+    private ProgressDialog pd;
+
+    private int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +41,18 @@ public class DayViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         resources = getResources();
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
+        mTimeIndicator = findViewById(R.id.timeIndicator);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(1);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-        mTimeIndicator = findViewById(R.id.timeIndicator);
+        DataPopulate.getInstance();
 
         Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        day = calendar.get(Calendar.DAY_OF_WEEK);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
         if (day == Calendar.SUNDAY) day = Calendar.MONDAY;
-        tabLayout.getTabAt(day - Calendar.MONDAY).select();
 
         int minTotal = hour * 60 + minutes;
         if (minTotal >= Const.SCHOOL_START_MINUTES && minTotal <= Const.SCHOOL_END_MINUTES) {
@@ -67,6 +68,23 @@ public class DayViewActivity extends AppCompatActivity {
         } else {
             mTimeIndicator.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null));
         }
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("Loading courses");
+        pd.setCancelable(false);
+        pd.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                mViewPager.setAdapter(mSectionsPagerAdapter);
+                pd.dismiss();
+                tabLayout.setupWithViewPager(mViewPager);
+                tabLayout.getTabAt(day - Calendar.MONDAY).select();
+            }
+        }, 2000);
     }
 
     @Override

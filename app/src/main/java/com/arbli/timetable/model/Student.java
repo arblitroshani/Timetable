@@ -21,7 +21,7 @@ public class Student implements Serializable{
         this.facultyId = facultyId;
     }
 
-    public Student(String id, String name, int studYear, int departmentId, int facultyId,boolean adminPrivilege) {
+    public Student(String id, String name, int studYear, int departmentId, int facultyId, boolean adminPrivilege) {
         this.id = id;
         this.name = name;
         this.studYear = studYear;
