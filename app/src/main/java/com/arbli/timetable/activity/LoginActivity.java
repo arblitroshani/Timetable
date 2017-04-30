@@ -44,9 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        initializeView();
         initializeListener();
-        //populateData();
     }
 
     private void initializeView(){
@@ -61,7 +59,18 @@ public class LoginActivity extends AppCompatActivity {
                 if(usernameText.getText().toString().length()==0 || passwordText.getText().toString().length()==0)
                     Toast.makeText(getApplicationContext(),"Fill out forms",Toast.LENGTH_LONG).show();
                 else{
-                    auth.signInWithEmailAndPassword(usernameText.getText().toString(),passwordText.getText().toString());
+                    auth.signInWithEmailAndPassword(usernameText.getText().toString(),passwordText.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
+                            startActivity(i);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Not correct",Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
@@ -115,7 +124,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeListener(){
         firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.setPersistenceEnabled(true);
         reference = firebaseDatabase.getReference();
         auth = FirebaseAuth.getInstance();
 
@@ -127,7 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
                     startActivity(i);
                 } else {
-                    recreate();
+                    initializeView();
+                    //populateData();
                 }
             }
         };
