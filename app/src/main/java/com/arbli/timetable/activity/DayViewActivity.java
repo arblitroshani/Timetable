@@ -3,7 +3,6 @@ package com.arbli.timetable.activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
@@ -23,14 +22,15 @@ import java.util.Calendar;
 
 public class DayViewActivity extends AppCompatActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    private static SectionsPagerAdapter mSectionsPagerAdapter;
+    private static ViewPager mViewPager;
     private View mTimeIndicator;
     private Resources resources;
-    private TabLayout tabLayout;
-    private ProgressDialog pd;
+    private static TabLayout tabLayout;
 
-    private int day;
+    private static ProgressDialog pd;
+
+    private static int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class DayViewActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(1);
 
-        DataPopulate.getInstance();
+        DataPopulate.getInstance(this);
 
         Calendar calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -73,18 +73,14 @@ public class DayViewActivity extends AppCompatActivity {
         pd.setMessage("Loading courses");
         pd.setCancelable(false);
         pd.show();
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    }
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-                pd.dismiss();
-                tabLayout.setupWithViewPager(mViewPager);
-                tabLayout.getTabAt(day - Calendar.MONDAY).select();
-            }
-        }, 2000);
+    public static void continueOperations() {
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        pd.dismiss();
+        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(day - Calendar.MONDAY).select();
     }
 
     @Override

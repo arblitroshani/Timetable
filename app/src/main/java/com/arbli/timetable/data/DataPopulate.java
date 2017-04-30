@@ -1,5 +1,8 @@
 package com.arbli.timetable.data;
 
+import android.app.Activity;
+
+import com.arbli.timetable.activity.DayViewActivity;
 import com.arbli.timetable.model.Course;
 import com.arbli.timetable.model.CourseEvent;
 import com.arbli.timetable.model.Department;
@@ -40,14 +43,14 @@ public class DataPopulate {
     private CourseEvent tmpCourseEvent;
     private Course tmpCourse;
 
-    public static DataPopulate getInstance() {
+    public static DataPopulate getInstance(Activity activity) {
         if (instance == null) {
-            instance = new DataPopulate();
+            instance = new DataPopulate(activity);
         }
         return instance;
     }
 
-    protected DataPopulate() {
+    protected DataPopulate(Activity activity) {
         i = 0;
         courseEventListID = new ArrayList<>();
         week = (ArrayList<CourseEvent>[]) new ArrayList[6];
@@ -68,7 +71,10 @@ public class DataPopulate {
     }
 
     private void addCourseEvent() {
-        if (i == courseEventListIDsize) return;
+        if (i == courseEventListIDsize) {
+            DayViewActivity.continueOperations();
+            return;
+        }
         courseEventReference.orderByChild("id").equalTo(courseEventListID.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

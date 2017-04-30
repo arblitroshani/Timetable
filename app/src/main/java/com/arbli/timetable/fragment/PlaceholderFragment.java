@@ -15,7 +15,7 @@ import com.arbli.timetable.data.DataPopulate;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_DAY = "day_of_week";
-    private static DataPopulate dp = DataPopulate.getInstance();
+    private DataPopulate dp = DataPopulate.getInstance(this.getActivity());
 
     public PlaceholderFragment() {
     }
