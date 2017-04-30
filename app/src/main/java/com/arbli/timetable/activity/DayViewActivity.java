@@ -52,7 +52,7 @@ public class DayViewActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_WEEK);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
-        if (day == Calendar.SUNDAY) day = Calendar.MONDAY;
+        if (day == Calendar.SUNDAY) day = Calendar.SATURDAY;
 
         int minTotal = hour * 60 + minutes;
         if (minTotal >= Const.SCHOOL_START_MINUTES && minTotal <= Const.SCHOOL_END_MINUTES) {
