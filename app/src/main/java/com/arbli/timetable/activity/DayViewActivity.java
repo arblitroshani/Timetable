@@ -77,8 +77,8 @@ public class DayViewActivity extends AppCompatActivity {
     }
 
     public static void continueOperations() {
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         pd.dismiss();
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.getTabAt(day - Calendar.MONDAY).select();
     }
