@@ -3,6 +3,7 @@ package com.arbli.timetable.activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
@@ -73,7 +74,17 @@ public class DayViewActivity extends AppCompatActivity {
         pd.setMessage("Loading courses");
         pd.setCancelable(false);
         pd.show();
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                continueOperations();
+            }
+        };
+        Handler handler = new Handler();
+        handler.postDelayed(runnable, 1000);
     }
 
     public static void continueOperations() {

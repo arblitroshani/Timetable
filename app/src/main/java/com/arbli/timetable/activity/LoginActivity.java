@@ -110,9 +110,9 @@ public class LoginActivity extends AppCompatActivity {
         CourseEvent ce2 = new CourseEvent(databaseCourse.getCourseName(), databaseProfessor.getShortName(), dbRefCourse.getKey(), dbRefProf.getKey(), "PC-LAB1", 5, 2, 2, 0);
         CourseEvent ce3 = new CourseEvent(databaseCourse.getCourseName(), databaseProfessor.getShortName(), dbRefCourse.getKey(), dbRefProf.getKey(), "PC-LAB1", 1, 2, 4, 0);
         DatabaseReference ceRef = reference.child(Const.REF_COURSEEVENTS).child(databaseCourse.getDepartment()).child(databaseCourse.getAcademicYear()+"");
-        ceRef.child(ce1.getDayOfWeek()+"").child(ceRef.child(ce1.getDayOfWeek()+"").push().getKey()).setValue(ce1);
-        ceRef.child(ce2.getDayOfWeek()+"").child(ceRef.child(ce2.getDayOfWeek()+"").push().getKey()).setValue(ce2);
-        ceRef.child(ce3.getDayOfWeek()+"").child(ceRef.child(ce3.getDayOfWeek()+"").push().getKey()).setValue(ce3);
+        ceRef.child(ceRef.push().getKey()).setValue(ce1);
+        ceRef.child(ceRef.push().getKey()).setValue(ce2);
+        ceRef.child(ceRef.push().getKey()).setValue(ce3);
     }
 
     private void initializeListener(){
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 } else {
                     initializeView();
-                    populateData();
+                    //populateData();
                 }
             }
         };
