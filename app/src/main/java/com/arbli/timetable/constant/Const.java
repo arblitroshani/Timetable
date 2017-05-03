@@ -4,12 +4,16 @@ import com.arbli.timetable.R;
 
 public class Const {
 
-    public static final int FACULTY_FAE_ID = 0;
-    public static final int FACULTY_FEAS_ID = 1;
+    public static final String FAC_FAE = "FAE";
+    public static final String FAC_FAE_NAME = "Faculty of Architechture and Engineering";
+    public static final String FAC_FAE_HEAD = "Husein Bilgin";
+    public static final String FAC_FEAS = "FEAS";
 
-    public static final int DEPARTMENT_CEN_ID = 0;
-    public static final int DEPARTMENT_ECE_ID = 1;
-    public static final int DEPARTMENT_ARCH_ID = 2;
+    public static final String DEP_CEN = "CEN";
+    public static final String DEP_CEN_NAME = "Computer Engineering";
+    public static final String DEP_CEN_HEAD = "Arban Uka";
+    public static final String DEP_ECE = "ECE";
+    public static final String DEP_ARCH = "ARCH";
 
     public static final int EVENT_EMPTY = 0;
     public static final int EVENT_LENGTH_1 = 1;
@@ -43,10 +47,18 @@ public class Const {
     public static final int SCHOOL_START_MINUTES = 8*60 + 45;
     public static final int SCHOOL_END_MINUTES = 20*60 + 30;
 
-    public static String TITLE_MSC = "M.Sc.";
-    public static String TITLE_DR = "Dr.";
-    public static String TITLE_PROF = "Prof.";
-    public static String TITLE_PROF_DR = "Prof. Dr.";
-    public static String TITLE_NOT = "";
+    public static final String TITLE_MSC = "M.Sc.";
+    public static final String TITLE_DR = "Dr.";
+    public static final String TITLE_PROF = "Prof.";
+    public static final String TITLE_PROF_DR = "Prof. Dr.";
+    public static final String TITLE_NOT = "";
+
+    public static final String REF_STUDENTS = "students";
+    public static final String REF_PROFESSORS = "professors";
+    public static final String REF_DEPARTMENTS = "departments";
+    public static final String REF_FACULTIES = "faculties";
+    public static final String REF_COURSES = "courses";
+    public static final String REF_COURSEEVENTS = "course_events";
+    public static final String REF_ADMIN = "admin";
 
 }

@@ -1,24 +1,29 @@
 package com.arbli.timetable.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class CourseEvent implements Comparable<CourseEvent>, Serializable {
 
-    private int id;
-    private int courseId;
+    private String nameOfCourse;
+    private String professorShortName;
+    private String courseId;
+    private String professorId;
     private String classroom;
     private int startingHour;
     private int duration;
     private int dayOfWeek;
     private int color;
 
-    private Course course;
-
     public CourseEvent(){}
 
-    public CourseEvent(int id, int courseId, String classroom, int startingHour, int duration, int dayOfWeek, int color) {
-        this.id = id;
+    public CourseEvent(String nameOfCourse, String professorShortName, String courseId, String professorId,
+                       String classroom, int startingHour, int duration, int dayOfWeek, int color) {
+        this.nameOfCourse = nameOfCourse;
+        this.professorShortName = professorShortName;
         this.courseId = courseId;
+        this.professorId = professorId;
         this.classroom = classroom;
         this.startingHour = startingHour;
         this.duration = duration;
@@ -26,24 +31,36 @@ public class CourseEvent implements Comparable<CourseEvent>, Serializable {
         this.color = color;
     }
 
-    public CourseEvent(int duration) {
-        this.duration = 0;
+    public String getNameOfCourse() {
+        return nameOfCourse;
     }
 
-    public int getId() {
-        return id;
+    public void setNameOfCourse(String nameOfCourse) {
+        this.nameOfCourse = nameOfCourse;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getProfessorShortName() {
+        return professorShortName;
     }
 
-    public int getCourseId() {
+    public void setProfessorShortName(String professorShortName) {
+        this.professorShortName = professorShortName;
+    }
+
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    public String getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(String professorId) {
+        this.professorId = professorId;
     }
 
     public String getClassroom() {
@@ -86,22 +103,8 @@ public class CourseEvent implements Comparable<CourseEvent>, Serializable {
         this.color = color;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     @Override
-    public int compareTo(CourseEvent courseEvent) {
+    public int compareTo(@NonNull CourseEvent courseEvent) {
         return startingHour - courseEvent.getStartingHour();
-    }
-
-    @Override
-    public String toString() {
-        return "Event: id:"+id+
-                " class:" + classroom;
     }
 }

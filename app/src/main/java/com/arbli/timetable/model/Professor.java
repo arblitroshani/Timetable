@@ -1,36 +1,23 @@
 package com.arbli.timetable.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Professor implements Serializable {
 
-    private int id;
     private String name;
     private String shortName;
     private String title;
     private String office;
-    private int facultyId;
-    private ArrayList<Integer> courseIdList;
+    private String department;
 
     public Professor(){}
 
-    public Professor(int id, String name, String shortName, String title, String office, int facultyId, ArrayList<Integer> courseIdList) {
-        this.id = id;
+    public Professor(String name, String shortName, String title, String office, String department) {
         this.name = name;
         this.shortName = shortName;
         this.title = title;
         this.office = office;
-        this.facultyId = facultyId;
-        this.courseIdList = courseIdList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.department = department;
     }
 
     public String getName() {
@@ -65,19 +52,11 @@ public class Professor implements Serializable {
         this.office = office;
     }
 
-    public int getFacultyId() {
-        return facultyId;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setFacultyId(int facultyId) {
-        this.facultyId = facultyId;
-    }
-
-    public ArrayList<Integer> getCourseIdList() {
-        return courseIdList;
-    }
-
-    public void setCourseIdList(ArrayList<Integer> courseIdList) {
-        this.courseIdList = courseIdList;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

@@ -25,9 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
@@ -48,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeView(){
-
         loginButton= (Button) findViewById(R.id.login_button);
         usernameText=(EditText) findViewById(R.id.username_text);
         passwordText=(EditText) findViewById(R.id.password_text);
@@ -59,11 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                 if(usernameText.getText().toString().length()==0 || passwordText.getText().toString().length()==0)
                     Toast.makeText(getApplicationContext(),"Fill out forms",Toast.LENGTH_LONG).show();
                 else{
-                    auth.signInWithEmailAndPassword(usernameText.getText().toString(),passwordText.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    auth.signInWithEmailAndPassword(usernameText.getText().toString(), passwordText.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
-                            startActivity(i);
+                                Intent i = new Intent(getApplicationContext(), DayViewActivity.class);
+                                startActivity(i);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -78,10 +75,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void populateData(){
 
-        auth.createUserWithEmailAndPassword("ddaja15@epoka.edu.al","111223").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword("ddaja15@epoka.edu.al", "111223").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                reference.child("Student").push().setValue(new Student(authResult.getUser().getUid(),"Deni Daja",2017, Const.DEPARTMENT_CEN_ID,Const.FACULTY_FAE_ID));
+                Student newStudent = new Student("Deni Daja", authResult.getUser().getEmail(), 2, Const.DEP_CEN);
+                reference.child(Const.REF_STUDENTS).child(authResult.getUser().getUid()).setValue(newStudent);
+                reference.child(Const.REF_ADMIN).child(authResult.getUser().getUid()).setValue(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override public void onFailure(@NonNull Exception e) {}
@@ -90,36 +89,30 @@ public class LoginActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword("atroshani15@epoka.edu.al","111223").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                reference.child("Student").push().setValue(new Student(authResult.getUser().getUid(),"Arbli Troshani",2017,Const.DEPARTMENT_CEN_ID,Const.FACULTY_FAE_ID));
+                Student newStudent = new Student("Arbli Troshani", authResult.getUser().getEmail(), 2, Const.DEP_CEN);
+                reference.child("students").child(authResult.getUser().getUid()).setValue(newStudent);
+                reference.child(Const.REF_ADMIN).child(authResult.getUser().getUid()).setValue(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override public void onFailure(@NonNull Exception e) {}
         });
 
-        reference.child("Course").push().setValue(new Course(0,"Introduction to Database", 0, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 1, 2017,4,10));
-        reference.child("Course").push().setValue(new Course(1,"Numerical Analysis", 1, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 2, 2017,4,10));
-        reference.child("Course").push().setValue(new Course(2,"Digital Design", 2, Const.FACULTY_FAE_ID, Const.DEPARTMENT_CEN_ID, 3, 2017,4,10));
+        reference.child(Const.REF_FACULTIES).child(Const.FAC_FAE).setValue(new Faculty(Const.FAC_FAE_NAME, Const.FAC_FAE_HEAD));
+        reference.child(Const.REF_DEPARTMENTS).child(Const.DEP_CEN).setValue(new Department(Const.DEP_CEN_NAME, Const.DEP_CEN_HEAD, Const.FAC_FAE));
 
-        reference.child("CourseEvent").push().setValue(new CourseEvent(0,0, "E110", 1, 3, Const.WEEK_MON, 0));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(1,1, "A131", 5, 2, Const.WEEK_MON, 1));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(2,2, "A130", 7, 2, Const.WEEK_MON, 2));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(3,0, "A130", 10, 3, Const.WEEK_MON, 3));
-        reference.child("CourseEvent").push().setValue(new CourseEvent(4,1, "A130", 4, 3, Const.WEEK_THU, 3));
-
-        reference.child("Professor").push().setValue(new Professor(0,"Elton Domnori", "edomnori", Const.TITLE_DR, "E210",Const.FACULTY_FAE_ID,new ArrayList<Integer>(0)));
-        reference.child("Professor").push().setValue(new Professor(1,"Arban Uka", "auka", Const.TITLE_DR, "E211",Const.FACULTY_FAE_ID,new ArrayList<Integer>(1)));
-        reference.child("Professor").push().setValue(new Professor(2,"Betim Cico", "bcico", Const.TITLE_PROF_DR, "E010",Const.FACULTY_FAE_ID,new ArrayList<Integer>(2)));
-
-        reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FAE_ID,"FAE",new ArrayList<Integer>(Const.DEPARTMENT_ARCH_ID)));
-        reference.child("Faculty").push().setValue(new Faculty(Const.FACULTY_FEAS_ID,"FEAS",new ArrayList<Integer>(Const.DEPARTMENT_CEN_ID)));
-
-        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_CEN_ID,"CEN",0));
-        reference.child("Department").push().setValue(new Department(Const.DEPARTMENT_ECE_ID,"ECE",1));
-
-        reference.child("CourseList1").child("0").setValue(new ArrayList<>(Arrays.asList(0, 1, 2)));
-        reference.child("CourseList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2)));
-        reference.child("CourseEventList1").child("0").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
-        reference.child("CourseEventList1").child("1").setValue(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4)));
+        Professor databaseProfessor = new Professor("Elton Domnori", "edomnori", Const.TITLE_DR, "1", Const.DEP_CEN);
+        DatabaseReference dbRefProf = reference.child(Const.REF_PROFESSORS).push();
+        dbRefProf.setValue(databaseProfessor);
+        Course databaseCourse = new Course("Database Management Systems", "CEN 252", Const.DEP_CEN, dbRefProf.getKey(), 2016, 2);
+        DatabaseReference dbRefCourse = reference.child(Const.REF_COURSES).push();
+        dbRefCourse.setValue(databaseCourse);
+        CourseEvent ce1 = new CourseEvent(databaseCourse.getCourseName(), databaseProfessor.getShortName(), dbRefCourse.getKey(), dbRefProf.getKey(), "E110-A", 6, 2, 0, 0);
+        CourseEvent ce2 = new CourseEvent(databaseCourse.getCourseName(), databaseProfessor.getShortName(), dbRefCourse.getKey(), dbRefProf.getKey(), "PC-LAB1", 5, 2, 2, 0);
+        CourseEvent ce3 = new CourseEvent(databaseCourse.getCourseName(), databaseProfessor.getShortName(), dbRefCourse.getKey(), dbRefProf.getKey(), "PC-LAB1", 1, 2, 4, 0);
+        DatabaseReference ceRef = reference.child(Const.REF_COURSEEVENTS).child(databaseCourse.getDepartment()).child(databaseCourse.getAcademicYear()+"");
+        ceRef.child(ce1.getDayOfWeek()+"").child(ceRef.child(ce1.getDayOfWeek()+"").push().getKey()).setValue(ce1);
+        ceRef.child(ce2.getDayOfWeek()+"").child(ceRef.child(ce2.getDayOfWeek()+"").push().getKey()).setValue(ce2);
+        ceRef.child(ce3.getDayOfWeek()+"").child(ceRef.child(ce3.getDayOfWeek()+"").push().getKey()).setValue(ce3);
     }
 
     private void initializeListener(){
@@ -136,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 } else {
                     initializeView();
-                    //populateData();
+                    populateData();
                 }
             }
         };

@@ -1,27 +1,15 @@
 package com.arbli.timetable.model;
 
-import java.util.ArrayList;
-
 public class Faculty {
 
-    private int id;
     private String name;
-    private ArrayList<Integer> departmentIds;
+    private String headProfessorName;
 
     public Faculty(){}
 
-    public Faculty(int id, String name, ArrayList<Integer> departmentIds) {
-        this.id = id;
+    public Faculty(String name, String headProfessorName) {
         this.name = name;
-        this.departmentIds = departmentIds;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.headProfessorName= headProfessorName;
     }
 
     public String getName() {
@@ -32,11 +20,11 @@ public class Faculty {
         this.name = name;
     }
 
-    public ArrayList<Integer> getDepartmentIds() {
-        return departmentIds;
+    public String getHeadProfessorName() {
+        return headProfessorName;
     }
 
-    public void setDepartmentIds(ArrayList<Integer> departmentIds) {
-        this.departmentIds = departmentIds;
+    public void setHeadProfessorName(String headProfessorName) {
+        this.headProfessorName = headProfessorName;
     }
 }

@@ -27,7 +27,6 @@ public class DataPopulate {
 
     private Student currentStudent = null;
     private Department currentDepartment = null;
-    private ArrayList<Integer> courseEventListID;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference studentReference;
