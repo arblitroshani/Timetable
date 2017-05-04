@@ -1,7 +1,6 @@
 package com.arbli.timetable.data;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.arbli.timetable.constant.Const;
 import com.arbli.timetable.model.CourseEvent;
@@ -57,8 +56,6 @@ public class DataPopulate {
                 mStudent = dataSnapshot.getValue(Student.class);
                 mDepartment = mStudent.getDepartment();
                 mYearStud = mStudent.getStudYear();
-                Log.i("TAG", "Student name: " + mStudent.getName());
-                Log.i("TAG", "DEP: "+mDepartment);
                 getCourseEvents();
             }
             @Override public void onCancelled(DatabaseError databaseError) {}
@@ -70,10 +67,8 @@ public class DataPopulate {
         dbRefCourseEvents.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("TAG", "number of dataSnap "+dataSnapshot.getChildrenCount());
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     CourseEvent ce = dsp.getValue(CourseEvent.class);
-                    Log.i("TAG", ""+ce.getNameOfCourse());
                     day[ce.getDayOfWeek()].add(ce);
                 }
             }

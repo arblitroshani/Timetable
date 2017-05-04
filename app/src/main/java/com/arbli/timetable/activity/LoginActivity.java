@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Student newStudent = new Student("Arbli Troshani", authResult.getUser().getEmail(), 2, Const.DEP_CEN);
-                reference.child("students").child(authResult.getUser().getUid()).setValue(newStudent);
+                reference.child(Const.REF_STUDENTS).child(authResult.getUser().getUid()).setValue(newStudent);
                 reference.child(Const.REF_ADMIN).child(authResult.getUser().getUid()).setValue(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 } else {
                     initializeView();
-                    //populateData();
+                    populateData();
                 }
             }
         };
